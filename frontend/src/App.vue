@@ -1,15 +1,44 @@
 <script setup>
-import Hello from './components/Hello.vue'
+import dogImage from './assets/dog.png'
+import mapImage from './assets/map.png'
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div id="app">
+    <header class="topbar">
+      <div class="logo"><strong>🐾 FindYourPet</strong></div>
+      <nav class="nav">
+        <a href="#">Home Page</a>
+        <input type="text" placeholder="Address, ad number, breed, etc." />
+        <button class="btn-post">Post Announcement</button>
+        <a href="#">Log in</a>
+      </nav>
+    </header>
+
+    <main class="content">
+      <div class="left-column">
+        <img :src="dogImage" alt="Golden Retriever" class="dog-img" />
+        <div class="contact-section">
+          <h4>Contact</h4>
+          <p>alinapopescu@example.com</p>
+          <button class="btn-contact">Contact</button>
+        </div>
+      </div>
+
+      <div class="right-column">
+        <h2>Lost a Pet - Dog Golden Retriever</h2>
+        <p class="posted-by"><a href="#">Posted by Diana Popescu - Today</a></p>
+
+        <h4>Description</h4>
+        <p>
+          Friendly, 7-year-old golden retriever, with a light golden coat.<br />
+          Last seen wearing a red collar.
+        </p>
+
+        <h4>Location</h4>
+        <p>Last seen in San Francisco, CA</p>
+        <img :src="mapImage" alt="Map" class="map-img" />
+      </div>
+    </main>
   </div>
-  <Hello />
 </template>
