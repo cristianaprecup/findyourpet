@@ -18,7 +18,7 @@
     <h2><b>What happened?</b></h2>
     <div class="buttons">
       <button class="lost-btn">Post a Lost</button>
-      <button class="found-btn">Found Pet</button>
+      <button class="found-btn" @click="goToLostPage">Found Pet</button>
     </div>
   </div>
 </div>
@@ -158,4 +158,15 @@
 }
 
 </style>
+
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+function goToLostPage() {
+  router.push('/announcements')
+}
+</script>
+
 

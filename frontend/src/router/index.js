@@ -5,6 +5,11 @@ import HomeView from '../views/HomeView.vue'
 const routes = [
   { path: '/login', name: 'Login', component: LoginView },
   { path: '/', name: 'Home', component: HomeView },
+  {
+    path: '/announcements',
+    name: 'Announcements',
+    component: () => import('../views/Announcements.vue')
+  }
 ]
 
 const router = createRouter({
