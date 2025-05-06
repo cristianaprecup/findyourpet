@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
 @SpringBootApplication
-@RestController         //change port from here if not running!
-@CrossOrigin(origins = "http://localhost:5177")
+@RestController
+@CrossOrigin(origins = "*")
 public class FindyourpetApplication {
 
 	public static void main(String[] args) {
