@@ -1,10 +1,12 @@
 <script setup>
 import Announcements from "./components/Announcements.vue";
+import AppHeader from './components/AppHeader.vue'
 </script>
 
 <template>
   <div class="app-container">
     < <Announcements />
+    <AppHeader />
     <router-view />
   </div>
 </template>
