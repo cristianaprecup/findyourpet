@@ -1,11 +1,9 @@
 <script setup>
-import Announcements from "./views/Announcements.vue";
 import AppHeader from './components/AppHeader.vue'
 </script>
 
 <template>
   <div class="app-container">
-    <
     <AppHeader />
     <router-view />
   </div>
@@ -20,9 +18,8 @@ html, body {
 }
 
 #app {
-  max-width: 1440px;
+  max-width: none;
   margin: 0 auto;
-  padding: 2rem;
   box-sizing: border-box;
 }
 </style>

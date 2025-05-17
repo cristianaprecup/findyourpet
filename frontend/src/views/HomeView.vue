@@ -1,6 +1,5 @@
 <template>
   <div class="home-container">
-    <!-- Hero Section -->
     <div class="hero">
       <div class="overlay">
         <div class="hero-text">
@@ -12,7 +11,6 @@
       </div>
     </div>
 
-<!-- Call to Action -->
 <div class="main-content">
   <div class="cta-section">
     <h2><b>What happened?</b></h2>
@@ -22,9 +20,6 @@
     </div>
   </div>
 </div>
-
-
-    <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
         <div>
@@ -49,7 +44,7 @@
 <style scoped>
 .home-container {
   font-family: Arial, sans-serif;
-  background-color: #f7f7f7; /* Very light gray */
+  background-color: #f7f7f7;
   color: #000;
   min-height: 100vh;
   display: flex;
@@ -71,7 +66,7 @@
 }
 
 .overlay {
-  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 30px;
   border-radius: 15px;
   width: 100%;

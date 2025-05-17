@@ -5,15 +5,6 @@ import mapImage from '../assets/map.png'
 
 <template>
   <div id="app">
-    <header class="topbar">
-      <div class="logo"><strong>🐾 FindYourPet</strong></div>
-      <nav class="nav">
-        <a href="#">Home Page</a>
-        <input type="text" placeholder="Address, ad number, breed, etc." />
-        <button class="btn-post">Post Announcement</button>
-        <a href="#">Log in</a>
-      </nav>
-    </header>
 
     <main class="content">
       <div class="left-column">
