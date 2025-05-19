@@ -2,8 +2,9 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
-import grayStripedCatImage from '../assets/Gray-striped-cat.jpg';
+import grayStripedCatImage from '../assets/gray-striped-cat.jpg';
 import grayWhiteCatImage from '../assets/gray-white-cat.jpeg';
 import blackWhiteCatImage from '../assets/black-white-cat.jpg';
 import orangeCatImage from '../assets/orange-cat.jpeg';

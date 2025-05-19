@@ -28,7 +28,7 @@ const routes = [
    {
      path: '/post',
      name: 'PostAnnouncement',
-     component: () => import('../views/PostAnnouncement.vue')
+     component: () => import('../views/postAnnouncement.vue')
    }
 ]
 
