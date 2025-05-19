@@ -1,3 +1,20 @@
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const searchInput = ref('');
+
+function goToBrowse() {
+  if (searchInput.value.trim()) {
+    router.push({ path: '/browse', query: { q: searchInput.value } });
+  } else {
+    router.push('/browse');
+  }
+}
+</script>
+
+
 <template>
   <header class="topbar">
     <div class="left-section">
@@ -11,7 +28,7 @@
     </div>
 
     <div class="search-container">
-      <input type="text" placeholder="Address, ad number, breed, etc." class="search-input" />
+      <input type="text" placeholder="Address, ad number, breed, etc." class="search-input" @keyup.enter="goToBrowse"/>
     </div>
 
     <div class="right-section">
