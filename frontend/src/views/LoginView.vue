@@ -1,3 +1,13 @@
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+function handleLogin() {
+  router.push('/dashboard');
+}
+</script>
+
 <template>
   <div class="app-container">
     <div class="login-container">
@@ -31,7 +41,7 @@
         </div>
 
         <div class="login-actions">
-          <button class="login-button" @click="login">Log In</button>
+          <button class="login-button" @click="handleLogin">Log In</button>
           <router-link to="/register" class="create-account">Create an account</router-link>
         </div>
       </div>
