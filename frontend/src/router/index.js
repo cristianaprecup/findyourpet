@@ -24,6 +24,11 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: () => import('../views/Dashboard.vue')
+   },
+   {
+     path: '/post',
+     name: 'PostAnnouncement',
+     component: () => import('../views/PostAnnouncement.vue')
    }
 ]
 
