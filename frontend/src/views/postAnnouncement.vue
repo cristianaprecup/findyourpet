@@ -27,30 +27,24 @@
       <div class="card-box">
         <form @submit.prevent="submitForm">
           <label>Pet type</label>
-          <input type="text" placeholder="dog, cat, etc." v-model="petType" />
+          <input type="text" placeholder="dog, cat, etc." v-model="petType" required />
 
           <label>Description</label>
-          <textarea placeholder="Describe your pet and how it was lost" v-model="petDescription" rows="5"></textarea>
-
-          <label>Photo</label>
-          <label class="photo-upload">
-            📷 upload from gallery
-            <input type="file" class="hidden" @change="handleImage" />
-          </label>
+          <textarea placeholder="Describe your pet and how it was lost" v-model="petDescription" rows="5" required></textarea>
 
           <label>Location</label>
-          <input type="text" placeholder="City or area" v-model="location" />
+          <input type="text" placeholder="City or area" v-model="location" required />
 
           <h3 class="section-title">Your contact information</h3>
 
           <label>Your name</label>
-          <input type="text" placeholder="Name" v-model="name" />
+          <input type="text" placeholder="Name" v-model="name" required />
 
           <label>Your phone</label>
-          <input type="tel" placeholder="Phone" v-model="phone" />
+          <input type="tel" placeholder="Phone" v-model="phone" required />
 
           <label>Email</label>
-          <input type="email" placeholder="you@example.com" v-model="email" />
+          <input type="email" placeholder="you@example.com" v-model="email" required />
 
           <div class="footer-row">
             <label class="privacy-check">
@@ -58,7 +52,7 @@
               I agree with the privacy policy
             </label>
             <button type="submit" class="btn-submit" :disabled="!agreeToPrivacy">
-              Submit button
+              Submit Announcement
             </button>
           </div>
         </form>
@@ -69,6 +63,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import axios from 'axios'
 
 const selectedType = ref('lost')
 const petType = ref('')
@@ -83,30 +78,37 @@ const handleImage = (e) => {
   const file = e.target.files[0]
   if (file) {
     console.log('Selected image:', file.name)
-    alert('Image selected: ' + file.name)
+    // You can use FormData to handle the image upload too
   }
 }
 
-const submitForm = () => {
+const submitForm = async () => {
   if (!agreeToPrivacy.value) {
     alert('Please agree to the privacy policy.')
     return
   }
 
   const data = {
-    selectedType: selectedType.value,
+    type: selectedType.value,
     petType: petType.value,
-    petDescription: petDescription.value,
+    description: petDescription.value,
     location: location.value,
     name: name.value,
     phone: phone.value,
-    email: email.value
+    email: email.value,
+    status: 'pending'
   }
 
-  console.log('Form data:', data)
-  alert('Announcement submitted!')
+  try {
+    await axios.post('http://localhost:2222/api/posts', data)
+    alert('Announcement submitted!')
+  } catch (error) {
+    console.error('Error submitting form:', error)
+    alert('Failed to submit post.')
+  }
 }
 </script>
+
 
 <style scoped>
 .page-wrapper {
@@ -178,25 +180,10 @@ textarea {
   background: #f0f0f0;
 }
 
-input[type="file"] {
-  display: none;
-}
-
 .section-title {
   text-align: center;
   font-weight: 600;
   margin: 2rem 0 1rem;
-}
-
-.photo-upload {
-  display: inline-block;
-  margin-top: 0.5rem;
-  padding: 0.75rem;
-  background: #f0f0f0;
-  border-radius: 8px;
-  color: #888;
-  text-align: center;
-  cursor: pointer;
 }
 
 .footer-row {
