@@ -63,24 +63,26 @@ export default {
     }
   },
   methods: {
+    // loginView.vue methods section
     login() {
-
       if (!this.credentials.username || !this.credentials.password) {
         this.error = 'Please enter both username and password';
         return;
       }
 
-      this.axios.post('/auth/login', this.credentials)
-          .then(response => {
-            localStorage.setItem('token', response.data.token);
-
-            this.$router.push('/');
-          })
-          .catch(error => {
-            console.error('Login error:', error);
-            this.error = error.response?.data?.message || 'Login failed. Please check your credentials.';
-          });
+      this.axios.post('http://localhost:2222/auth/login', {
+        email: this.credentials.username,
+        password: this.credentials.password
+      })
+      .then(response => {
+        localStorage.setItem('user', JSON.stringify(response.data));
+        this.$router.push('/dashboard');
+      })
+      .catch(error => {
+        this.error = 'Invalid login.';
+      });
     }
+
   }
 }
 </script>
