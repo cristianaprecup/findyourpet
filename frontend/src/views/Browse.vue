@@ -38,18 +38,6 @@ const pets = ref([
     coordinates: { lat: 44.4647, lng: 26.0865 }
   },
   {
-    id: 2,
-    image: grayWhiteCatImage,
-    description: 'A gray and white cat was found sitting under a parked car...',
-    features: 'gray, striped',
-    location: 'Intrarea Violoncelului, Sector 4',
-    date: 'Tue, 30.04.2025',
-    name: 'Elena Ionescu',
-    phone: '0741 123 456',
-    email: 'elena.ionescu@email.com',
-    coordinates: { lat: 44.4139, lng: 26.1025 }
-  },
-  {
     id: 3,
     image: blackWhiteCatImage,
     description: 'Found a young white and black cat meowing outside...',
@@ -190,9 +178,34 @@ onMounted(() => {
             </div>
           </div>
         </div>
+         <div class="pet-listings">
+                  <div
+                    v-for="(pet, index) in filteredPets"
+                    :key="index"
+                    class="pet-card"
+                    @click="selectPet(pet)"
+                  >
+                    <div class="pet-image">
+                      <img :src="pet.image" :alt="pet.description" />
+                    </div>
+                    <div class="pet-details">
+                      <p class="pet-description">{{ pet.description }}</p>
+                      <div class="pet-features"><strong>Features:</strong> {{ pet.features }}</div>
+                      <div class="pet-location">{{ pet.location }}</div>
+                      <div class="pet-date">{{ pet.date }}</div>
 
+
+
+
+                      <div class="pet-contact">
+                        <div><strong>{{ pet.name }}</strong></div>
+                        <div>{{ pet.phone }}</div>
+                        <div>{{ pet.email }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
       </aside>
-
       <div class="map-container">
         <div ref="mapContainer" class="leaflet-map"></div>
       </div>
