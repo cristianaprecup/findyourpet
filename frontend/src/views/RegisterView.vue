@@ -1,5 +1,50 @@
 <script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
 import avatarImage from '../assets/avatar.png'
+
+const router = useRouter()
+
+const fullName = ref('')
+const email = ref('')
+const phone = ref('')
+const password = ref('')
+const confirmPassword = ref('')
+const selectedRole = ref('USER')
+const isHuman = ref(false)
+
+const submitForm = async () => {
+  if (!isHuman.value) {
+    alert('Please confirm you are human.')
+    return
+  }
+
+  if (!fullName.value || !email.value || !phone.value || !password.value || !confirmPassword.value) {
+    alert('Please fill in all fields.')
+    return
+  }
+
+  if (password.value !== confirmPassword.value) {
+    alert('Passwords do not match.')
+    return
+  }
+
+  try {
+    await axios.post('http://localhost:2222/auth/register', {
+      name: fullName.value,
+      email: email.value,
+      phone: phone.value,
+      password: password.value,
+      role: selectedRole.value
+    })
+    alert('Registered successfully!')
+    router.push('/login')
+  } catch (error) {
+    console.error(error)
+    alert('Registration failed.')
+  }
+}
 </script>
 
 <template>
@@ -9,36 +54,36 @@ import avatarImage from '../assets/avatar.png'
         <img :src="avatarImage" alt="User Avatar" class="dog-img" />
         <div class="contact-section">
           <h4>Already have an account?</h4>
-          <p><a href="#">Log In</a></p>
+          <p><router-link to="/login">Log In</router-link></p>
         </div>
       </div>
 
       <div class="right-column">
         <h2>Create Account</h2>
-        <form>
+        <form @submit.prevent="submitForm">
           <label>Full Name:</label>
-          <input type="text" placeholder="ex. Popa Ioana" />
+          <input type="text" v-model="fullName" placeholder="ex. Popa Ioana" />
 
           <label>Email Address:</label>
-          <input type="email" placeholder="example@email.com" />
+          <input type="email" v-model="email" placeholder="example@email.com" />
 
           <label>Phone Number:</label>
-          <input type="text" placeholder="07xxxxxxxx" />
+          <input type="text" v-model="phone" placeholder="07xxxxxxxx" />
 
           <label>Password:</label>
-          <input type="password" placeholder="password" />
+          <input type="password" v-model="password" placeholder="password" />
 
           <label>Confirm Password:</label>
-          <input type="password" placeholder="password" />
+          <input type="password" v-model="confirmPassword" placeholder="password" />
 
           <label>Register as:</label>
           <div class="role-select">
-            <button type="button" class="active">✓ User</button>
-            <button type="button">Admin</button>
+            <button type="button" :class="{ active: selectedRole === 'USER' }" @click="selectedRole = 'USER'">✓ User</button>
+            <button type="button" :class="{ active: selectedRole === 'ADMIN' }" @click="selectedRole = 'ADMIN'">Admin</button>
           </div>
 
           <div class="captcha-container">
-            <input type="checkbox" id="human" />
+            <input type="checkbox" id="human" v-model="isHuman" />
             <label for="human">I am human</label>
           </div>
 
@@ -62,9 +107,17 @@ html, body {
   margin: 0 auto;
   box-sizing: border-box;
 }
-</style>
 
-<style scoped>
+.content {
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.left-column {
+  flex: 1;
+  text-align: center;
+}
 
 .right-column {
   flex: 2;
@@ -116,7 +169,6 @@ html, body {
   border-color: #a77dfa;
 }
 
-/* CAPTCHA section */
 .captcha-container {
   display: flex;
   align-items: center;
