@@ -31,6 +31,9 @@ const pets = ref([
     features: 'gray, striped',
     location: 'Herăstrău Park, near Șoseaua Nordului',
     date: 'Mon, 29.04.2025',
+    name: 'Andrei Popescu',
+    phone: '0723 456 789',
+    email: 'andrei.popescu@email.com',
     coordinates: { lat: 44.4647, lng: 26.0865 }
   },
   {
@@ -40,6 +43,9 @@ const pets = ref([
     features: 'gray, striped',
     location: 'Intrarea Violoncelului, Sector 4',
     date: 'Tue, 30.04.2025',
+    name: 'Elena Ionescu',
+    phone: '0741 123 456',
+    email: 'elena.ionescu@email.com',
     coordinates: { lat: 44.4139, lng: 26.1025 }
   },
   {
@@ -49,6 +55,9 @@ const pets = ref([
     features: 'white, striped',
     location: 'Bulevardul Timișoara, Sector 6',
     date: 'Tue, 30.04.2025',
+    name: 'Mihai Georgescu',
+    phone: '0765 987 654',
+    email: 'mihai.georgescu@email.com',
     coordinates: { lat: 44.4278, lng: 26.0412 }
   },
   {
@@ -58,6 +67,9 @@ const pets = ref([
     features: 'tiny, orange',
     location: 'Intrarea Violoncelului, Sector 4',
     date: 'Wed, 31.04.2025',
+    name: 'Ioana Marinescu',
+    phone: '0734 222 333',
+    email: 'ioana.marinescu@email.com',
     coordinates: { lat: 44.4139, lng: 26.1025 }
   },
   {
@@ -67,6 +79,9 @@ const pets = ref([
     features: 'gray, striped',
     location: 'Șoseaua Pantelimon, near Mega Mall',
     date: 'Wed, 31.04.2025',
+    name: 'Vlad Dumitrescu',
+    phone: '0788 444 555',
+    email: 'vlad.dumitrescu@email.com',
     coordinates: { lat: 44.4417, lng: 26.1513 }
   }
 ]);
@@ -149,6 +164,11 @@ onMounted(() => {
               <div class="pet-features"><strong>Features:</strong> {{ pet.features }}</div>
               <div class="pet-location">{{ pet.location }}</div>
               <div class="pet-date">{{ pet.date }}</div>
+              <div class="pet-contact">
+                <div><strong>{{ pet.name }}</strong></div>
+                <div>{{ pet.phone }}</div>
+                <div>{{ pet.email }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -177,7 +197,7 @@ onMounted(() => {
 }
 
 .sidebar {
-  width: 300px;
+  width: 500px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -229,6 +249,11 @@ onMounted(() => {
   flex-direction: column;
 }
 
+.pet-contact {
+  margin-top: 4px;
+  font-size: 0.7rem;
+  color: #444;
+}
 .map-container {
   flex: 1;
   position: relative;

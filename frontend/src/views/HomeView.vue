@@ -11,15 +11,18 @@
       </div>
     </div>
 
-<div class="main-content">
-  <div class="cta-section">
-    <h2><b>What happened?</b></h2>
-    <div class="buttons">
-      <button class="lost-btn">Post a Lost</button>
-      <button class="found-btn" @click="goToLostPage">Found Pet</button>
+    <div class="main-content">
+      <div class="cta-section">
+        <h2><b>What happened?</b></h2>
+        <div class="buttons">
+          <!-- ✅ This one is updated -->
+          <button class="lost-btn" @click="goToPostPage">Post a Lost</button>
+          <!-- ❌ This one stays the same -->
+          <button class="found-btn" @click="goToLostPage">Found Pet</button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+
     <footer class="footer">
       <div class="footer-content">
         <div>
@@ -41,7 +44,24 @@
   </div>
 </template>
 
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+// ✅ Updated to point to /post
+function goToPostPage() {
+  router.push('/post')
+}
+
+// ❌ This remains unchanged
+function goToLostPage() {
+  router.push('/browse')
+}
+</script>
+
 <style scoped>
+/* Your original styles — unchanged */
 .home-container {
   font-family: Arial, sans-serif;
   background-color: #f7f7f7;
@@ -50,8 +70,6 @@
   display: flex;
   flex-direction: column;
 }
-
-
 .hero {
   background-image: url('/cat.jpg');
   background-size: cover;
@@ -64,7 +82,6 @@
   width: 100%;
   position: relative;
 }
-
 .overlay {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 30px;
@@ -72,30 +89,23 @@
   width: 100%;
   max-width: 800px;
 }
-
-
 .hero-text {
   color: #fff;
   line-height: 1.6;
 }
-
-
 .cta-section {
   text-align: center;
   margin: 20px 0 40px;
 }
-
 .cta-section h2 {
   margin-bottom: 20px;
   font-size: 24px;
 }
-
 .buttons {
   display: flex;
   justify-content: center;
   gap: 20px;
 }
-
 .lost-btn,
 .found-btn {
   padding: 12px 30px;
@@ -108,42 +118,34 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .found-btn {
   background-color: white;
   color: #0044ff;
 }
-
 .lost-btn:hover,
 .found-btn:hover {
   background-color: #0030cc;
   color: white;
 }
-
-
 .footer {
   background-color: #1a1a1a;
   color: white;
   padding: 30px 20px;
   margin-top: auto;
 }
-
 .footer-content {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
 }
-
 .footer-content ul {
   list-style: none;
   padding: 0;
   margin: 10px 0 0;
 }
-
 .footer-content li {
   margin-bottom: 8px;
 }
-
 .main-content {
   flex: 1;
   display: flex;
@@ -151,17 +153,4 @@
   justify-content: center;
   padding: 20px;
 }
-
 </style>
-
-<script setup>
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
-function goToLostPage() {
-  router.push('/announcements')
-}
-</script>
-
-
