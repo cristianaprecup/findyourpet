@@ -35,6 +35,9 @@
           <label>Location</label>
           <input type="text" placeholder="City or area" v-model="location" required />
 
+          <label>Image URL</label>
+          <input type="url" placeholder="https://example.com/image.jpg" v-model="imageUrl" />
+
           <h3 class="section-title">Your contact information</h3>
 
           <label>Your name</label>
@@ -67,6 +70,7 @@ import axios from 'axios'
 
 const selectedType = ref('lost')
 const petType = ref('')
+const imageUrl = ref('')
 const petDescription = ref('')
 const location = ref('')
 const name = ref('')
@@ -96,6 +100,7 @@ const submitForm = async () => {
     name: name.value,
     phone: phone.value,
     email: email.value,
+    imageUrl: imageUrl.value,
     status: 'pending'
   }
 

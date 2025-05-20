@@ -17,14 +17,9 @@ public class PetPost {
     private String location;
     private String name;
     private String phone;
-    private String email;
     private String imageUrl;
+    private String email;
 
     @Column(nullable = false)
     private boolean approved = false;
-
-
-    public void setApproved(boolean approved) {
-        this.approved = approved;
-    }
 }

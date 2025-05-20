@@ -14,35 +14,51 @@
         <div class="posts-list">
           <div v-for="post in pendingPosts" :key="post.id" class="post-card">
             <div class="post-image">
-              <img :src="post.imageUrl" :alt="post.description" />
+              <img :src="post.imageUrl" :alt="post.description || 'Pet image'" />
             </div>
+
             <div class="post-content">
-              <p class="post-description">{{ post.description }}</p>
-              <div class="post-features">
+              <p class="post-description">
+                {{ post.description || 'No description available.' }}
+              </p>
+
+              <div><strong>Pet type:</strong> {{ post.petType }}</div>
+              <div><strong>Type:</strong> {{ post.type }}</div>
+
+              <div v-if="post.features" class="post-features">
                 <strong>Features:</strong> {{ post.features }}
               </div>
-              <div class="post-location">
+
+              <div v-if="post.location" class="post-location">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="location-icon">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
                 <span>{{ post.location }}</span>
               </div>
-              <div class="post-date">{{ post.date }}</div>
+
+              <div v-if="post.date" class="post-date">
+                <strong>Date:</strong> {{ new Date(post.date).toLocaleString() }}
+              </div>
+
+              <div v-if="post.name"><strong>Contact name:</strong> {{ post.name }}</div>
+              <div v-if="post.phone"><strong>Phone:</strong> {{ post.phone }}</div>
+              <div v-if="post.email"><strong>Email:</strong> {{ post.email }}</div>
             </div>
+
             <div class="post-actions">
               <button
-                class="approve-button"
-                @click="() => handlePost(post.id, 'approve')"
-                :disabled="post.processing"
+                  class="approve-button"
+                  @click="() => handlePost(post.id, 'approve')"
+                  :disabled="post.processing"
               >
                 <span v-if="!post.processing">Approve</span>
                 <span v-else>Processing...</span>
               </button>
               <button
-                class="reject-button"
-                @click="() => handlePost(post.id, 'reject')"
-                :disabled="post.processing"
+                  class="reject-button"
+                  @click="() => handlePost(post.id, 'reject')"
+                  :disabled="post.processing"
               >
                 Reject
               </button>
@@ -63,6 +79,7 @@ const pendingPosts = ref([])
 const fetchPendingPosts = async () => {
   try {
     const response = await axios.get('http://localhost:2222/api/posts/pending')
+    console.log('Fetched posts:', response.data)
     pendingPosts.value = response.data.map(p => ({ ...p, processing: false }))
   } catch (error) {
     console.error('Failed to fetch posts:', error)
@@ -184,7 +201,9 @@ onMounted(() => {
   margin-bottom: 0.5rem;
 }
 
-.post-features, .post-location, .post-date {
+.post-features,
+.post-location,
+.post-date {
   font-size: 0.75rem;
   margin-bottom: 0.25rem;
 }
@@ -203,7 +222,8 @@ onMounted(() => {
   justify-content: center;
 }
 
-.approve-button, .reject-button {
+.approve-button,
+.reject-button {
   padding: 0.375rem 0.75rem;
   border-radius: 0.375rem;
   font-size: 0.75rem;
