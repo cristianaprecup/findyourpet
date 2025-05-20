@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
 
     @Id
@@ -13,22 +13,25 @@ public class User {
     private Long id;
 
     private String name;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
     private String phone;
+
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-    public String getPassword() {
-        return password;
-    }
+    private String role; // "User" or "Admin"
 
     public String getEmail() {
         return email;
     }
 
-    public enum Role {
-        USER, ADMIN
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
