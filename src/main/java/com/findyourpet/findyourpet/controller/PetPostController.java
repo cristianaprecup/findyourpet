@@ -41,4 +41,11 @@ public class PetPostController {
     public void deletePost(@PathVariable Long id) {
         service.deletePost(id);
     }
+
+    @PutMapping("/reject/{id}")
+    public void rejectPost(@PathVariable Long id) {
+        service.rejectPost(id);
+    }
+
+
 }

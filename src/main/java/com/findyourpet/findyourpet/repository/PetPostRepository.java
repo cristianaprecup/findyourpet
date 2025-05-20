@@ -8,4 +8,5 @@ import java.util.List;
 public interface PetPostRepository extends JpaRepository<PetPost, Long> {
     List<PetPost> findByApprovedFalse();
     List<PetPost> findByApprovedTrue();
+    List<PetPost> findByApprovedIsNull();
 }

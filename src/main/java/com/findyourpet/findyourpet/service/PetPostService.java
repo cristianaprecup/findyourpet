@@ -20,7 +20,7 @@ public class PetPostService {
     }
 
     public List<PetPost> getPendingPosts() {
-        return repository.findByApprovedFalse();
+        return repository.findByApprovedIsNull();
     }
 
     public List<PetPost> getApprovedPosts() {
@@ -36,4 +36,12 @@ public class PetPostService {
     public void deletePost(Long id) {
         repository.deleteById(id);
     }
+
+    public void rejectPost(Long id) {
+        PetPost post = repository.findById(id).orElseThrow();
+        post.setApproved(false);
+        repository.save(post);
+    }
+
+
 }

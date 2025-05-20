@@ -3,6 +3,7 @@ import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import axios from 'axios'
 
 import grayStripedCatImage from '../assets/gray-striped-cat.jpg';
 import grayWhiteCatImage from '../assets/gray-white-cat.jpeg';
@@ -104,10 +105,23 @@ const selectPet = (pet) => {
   }
 };
 
+const approvedPosts = ref([])
+
+const fetchApprovedPosts = async () => {
+  try {
+    const response = await axios.get('http://localhost:2222/api/posts/approved')
+    approvedPosts.value = response.data
+  } catch (error) {
+    console.error('Error fetching approved posts:', error)
+  }
+}
+
+
 let mapInstance;
 
 onMounted(() => {
   mapInstance = L.map(mapContainer.value).setView([44.4268, 26.1025], 12);
+  fetchApprovedPosts()
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
@@ -151,27 +165,32 @@ onMounted(() => {
 
         <div class="pet-listings">
           <div
-            v-for="(pet, index) in filteredPets"
-            :key="index"
-            class="pet-card"
-            @click="selectPet(pet)"
+              v-for="(post, index) in approvedPosts"
+              :key="index"
+              class="pet-card"
+              @click="selectPet(post)"
           >
             <div class="pet-image">
-              <img :src="pet.image" :alt="pet.description" />
+              <img :src="post.imageUrl" :alt="post.description" />
             </div>
             <div class="pet-details">
-              <p class="pet-description">{{ pet.description }}</p>
-              <div class="pet-features"><strong>Features:</strong> {{ pet.features }}</div>
-              <div class="pet-location">{{ pet.location }}</div>
-              <div class="pet-date">{{ pet.date }}</div>
+              <p class="pet-description">{{ post.description }}</p>
+
+              <div class="pet-location">{{ post.location }}</div>
+
+              <div v-if="post.date" class="pet-date">
+                {{ new Date(post.date).toLocaleString() }}
+              </div>
+
               <div class="pet-contact">
-                <div><strong>{{ pet.name }}</strong></div>
-                <div>{{ pet.phone }}</div>
-                <div>{{ pet.email }}</div>
+                <div><strong>{{ post.name }}</strong></div>
+                <div>{{ post.phone }}</div>
+                <div>{{ post.email }}</div>
               </div>
             </div>
           </div>
         </div>
+
       </aside>
 
       <div class="map-container">

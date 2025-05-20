@@ -20,6 +20,6 @@ public class PetPost {
     private String imageUrl;
     private String email;
 
-    @Column(nullable = false)
-    private boolean approved = false;
+    @Column(nullable = true)
+    private Boolean approved;
 }
